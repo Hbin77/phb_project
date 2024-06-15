@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Seat Reservation</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>Available Seats</h1>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Seat Number</th>
+					<th>Seat Status</th>
+					<th>Reserve Seat</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for seat in seats %}
+				<tr>
+					<td>{{ seat[0] }}</td>
+					<td>{{ seat[1] }}</td>
+					<td>
+						<form action="/reserve" method="POST">
+							<input type="hidden" name="seat" value="{{ seat[0] }}">
+							{% if seat[1] == 'available' %}
+							<button type="submit" class="btn btn-success">Reserve</button>
+							{% else %}
+							<button type="button" class="btn btn-danger" disabled>Reserved</button>
+							{% endif %}
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
